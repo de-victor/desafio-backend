@@ -18,12 +18,12 @@ public class DisciplinaService extends GenericService<Disciplina, Long, Discipli
 	UsuarioService userService;
 	
 	@Override
-	public Disciplina update(Disciplina model) {
+	public Disciplina salvar(Disciplina model) {
 		Usuario professor = userService.getById(model.getIdProfessor());
 		if(professor == null || professor.getIdTipo() != 3)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "PROFESSOR INVALIDO INVALIDO");
 		
-		return super.update(model);
+		return super.salvar(model);
 	}
 	
 	@Override

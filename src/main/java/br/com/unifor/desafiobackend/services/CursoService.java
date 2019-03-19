@@ -20,7 +20,7 @@ public class CursoService extends GenericService<Curso, Long, CursoRepository> {
 	UsuarioService userService;
 	
 	@Override
-	public Curso update(Curso model) {
+	public Curso salvar(Curso model) {
 		Usuario coordenador = userService.getById(model.getIdCoordenador());
 		
 		if(coordenador.getIdTipo() != 2)

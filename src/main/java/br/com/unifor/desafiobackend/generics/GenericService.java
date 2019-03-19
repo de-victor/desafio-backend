@@ -19,12 +19,16 @@ public abstract class GenericService<Model, IdType, Repository extends JpaReposi
 		repository.deleteById(id);
 	}
 	
-	public Model update(Model model) {
+	public Model salvar(Model model) {
 		return repository.saveAndFlush(model);
 	}
 	
 	public Model getById(IdType id) {
 		return repository.getOne(id);
+	}
+	
+	public Model atualizar(Model model) {
+		return repository.saveAndFlush(model);
 	}
 	
 }

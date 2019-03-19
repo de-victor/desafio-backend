@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -23,7 +24,7 @@ public abstract class GenericControllerCrud<Model, IdType, Repository extends Jp
 	
 	@PostMapping
 	public Model save(@RequestBody Model model) {
-		return service.update(model);
+		return service.salvar(model);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -31,8 +32,8 @@ public abstract class GenericControllerCrud<Model, IdType, Repository extends Jp
 		service.remover(id);
 	}
 	
-	@PostMapping("/{id}")
-	public Model atualizar() {
-		return null;
+	@PutMapping("/{id}")
+	public Model atualizar(@PathVariable Long id, @RequestBody Model model) {
+		return service.atualizar(model);
 	}
 }

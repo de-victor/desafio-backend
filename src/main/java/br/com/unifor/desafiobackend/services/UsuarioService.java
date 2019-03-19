@@ -19,10 +19,10 @@ import br.com.unifor.desafiobackend.repository.UsuarioRepository;
 public class UsuarioService extends GenericService<Usuario, Long, UsuarioRepository> {
 
 	@Override
-	public Usuario update(Usuario model) {
+	public Usuario salvar(Usuario model) {
 		model.setSenha(criptografar(model.getSenha()));
 		model.setToken(gerarToken(model));
-		return super.update(model);
+		return super.salvar(model);
 	}
 	
 	public Usuario getUsuarioByToken(String token) {
