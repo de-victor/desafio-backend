@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public abstract class GenericService<Model, IdType, Repository extends JpaRepository<Model, IdType>> {
 	
 	@Autowired
-	private Repository repository;
+	protected Repository repository;
 	
 	public List<Model> getAll(){
 		return repository.findAll();
