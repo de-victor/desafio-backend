@@ -33,6 +33,7 @@ public class Interceptador implements HandlerInterceptor {
 	
 	private Boolean urlValida(String uri, String token, String method) {
 		Long tipoUsuario;
+		uri = String.format("/%s", uri.split("/")[1]);
 		
 		if(token == null || token.isEmpty())
 			tipoUsuario = TiposUsuarios.SEM_IDENTIFICADOR;
