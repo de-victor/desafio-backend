@@ -7,5 +7,6 @@ import br.com.unifor.desafiobackend.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	Usuario findByToken(String token);
+	Usuario findByMatriculaAndSenha(String matricula, String senha);
 
 }

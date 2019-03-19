@@ -25,14 +25,11 @@ public class Curso {
 	@Column(name="cur_nome")
 	private String nome;
 	
-	@Column(name="cur_carga_horaria")
-	private Integer cargaHoraria;
-	
-	@Column(name="fk_id_usu_professor")
+	@Column(name="cur_fk_id_usu_professor")
 	private Long idProfessor;
 	
 	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="fk_id_usu_professor", insertable=false, updatable=false)
-	private Usuario professor;
+	@JoinColumn(name="cur_fk_id_usu_coordenador", insertable=false, updatable=false)
+	private Usuario coordenador;
 	
 }

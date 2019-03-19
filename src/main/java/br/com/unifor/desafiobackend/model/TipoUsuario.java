@@ -15,7 +15,6 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="tipo_usuario")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TipoUsuario {
 	
 	@Id

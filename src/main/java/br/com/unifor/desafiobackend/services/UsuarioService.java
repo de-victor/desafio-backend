@@ -5,8 +5,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.com.unifor.desafiobackend.generics.GenericService;
 import br.com.unifor.desafiobackend.model.Usuario;
@@ -25,6 +27,31 @@ public class UsuarioService extends GenericService<Usuario, Long, UsuarioReposit
 	
 	public Usuario getUsuarioByToken(String token) {
 		return this.repository.findByToken(token);
+	}
+	
+	public Usuario login(Usuario usuario) {
+		Usuario logado = this.repository.findByMatriculaAndSenha(usuario.getMatricula(), criptografar(usuario.getSenha()));
+		
+		if(logado == null)
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "LOGIN OU SENHA INVALIDOS");
+		
+		logado.setToken(gerarToken(logado));
+		this.repository.saveAndFlush(logado);
+		
+		logado.setTipoUsuario(null);
+		logado.setSenha(null);
+		
+		
+		return logado;
+	}
+	
+	public void logout(Usuario usuario) {
+		Usuario user = this.repository.findByToken(usuario.getToken());
+		if(user == null)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ERRO AO DESCONECTAR!");
+		
+		user.setToken(null);
+		this.repository.saveAndFlush(user);
 	}
 
 	private String gerarToken(Usuario model) {

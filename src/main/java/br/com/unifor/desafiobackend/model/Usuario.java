@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -29,19 +30,20 @@ public class Usuario {
 	private String matricula;
 	
 	@Column(name="usu_nome")
+	@NotBlank(message = "Descrição do tipo usuario é obritatoria!")
 	private String nome;
 	
 	@Column(name="usu_senha")
 	private String senha;
 	
-	@Column(name="fk_tipo_usu")
+	@Column(name="usu_fk_tipo_usu")
 	private Long idTipo;
 	
 	@Column(name="usu_token")
 	private String token;
 	
 	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="fk_tipo_usu", insertable=false, updatable=false)
+	@JoinColumn(name="usu_fk_tipo_usu", insertable=false, updatable=false)
 	private TipoUsuario tipoUsuario;
 	
 }

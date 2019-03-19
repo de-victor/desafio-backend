@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public abstract class GenericControllerCrud<Model, IdType, Repository extends JpaRepository<Model,IdType>, Service extends GenericService<Model, IdType, Repository>> {
 
 	@Autowired
-	Service service;
+	protected Service service;
 	
 	@GetMapping
 	public List<Model> getAll(){
