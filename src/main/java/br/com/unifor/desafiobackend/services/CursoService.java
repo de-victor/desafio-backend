@@ -24,7 +24,7 @@ public class CursoService extends GenericService<Curso, Long, CursoRepository> {
 	public Curso salvar(Curso model) {
 		Usuario coordenador = userService.getById(model.getIdCoordenador());
 		
-		if(coordenador.getIdTipo() != TiposUsuarios.COORDENADOR)
+		if(coordenador == null || !coordenador.getIdTipo().equals(TiposUsuarios.COORDENADOR))
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "COORDENADOR DE CURSO INVALIDO");
 		
 		return this.repository.saveAndFlush(model);

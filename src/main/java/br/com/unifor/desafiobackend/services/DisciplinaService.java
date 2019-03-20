@@ -21,8 +21,8 @@ public class DisciplinaService extends GenericService<Disciplina, Long, Discipli
 	@Override
 	public Disciplina salvar(Disciplina model) {
 		Usuario professor = userService.getById(model.getIdProfessor());
-		if(professor == null || professor.getIdTipo() != TiposUsuarios.PROFESSOR)
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "PROFESSOR INVALIDO INVALIDO");
+		if(professor == null || !professor.getIdTipo().equals(TiposUsuarios.PROFESSOR))
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "PROFESSOR INVALIDO");
 		
 		return super.salvar(model);
 	}
