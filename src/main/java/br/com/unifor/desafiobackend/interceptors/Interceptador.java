@@ -33,7 +33,11 @@ public class Interceptador implements HandlerInterceptor {
 	
 	private Boolean urlValida(String uri, String token, String method) {
 		Long tipoUsuario;
-		uri = String.format("/%s", uri.split("/")[1]);
+		if(uri.equals("/error"))
+			return true;
+		
+		if(token != null)
+			uri = String.format("/%s", uri.split("/")[1]);
 		
 		if(token == null || token.isEmpty())
 			tipoUsuario = TiposUsuarios.SEM_IDENTIFICADOR;
@@ -44,8 +48,11 @@ public class Interceptador implements HandlerInterceptor {
 			else
 				tipoUsuario = usuarioByToken.getIdTipo();
 		}
-		if(!listaUri(tipoUsuario).contains(uri))
+		
+		if(!listaUri(tipoUsuario).contains(uri)) {
 			return false;
+		}
+			
 		
 		return true;
 	}
@@ -53,11 +60,11 @@ public class Interceptador implements HandlerInterceptor {
 	private List<String> listaUri(Long tipoUsuario){
 		
 		Map<Long, List<String>> map = new HashMap<Long, List<String>>();
-		map.put(TiposUsuarios.SEM_IDENTIFICADOR, Arrays.asList("/login", "/logout"));
-		map.put(TiposUsuarios.ADMINISTRADOR, Arrays.asList("/usuario"));
-		map.put(TiposUsuarios.COORDENADOR, Arrays.asList("/curso", "/disciplina", "/semestre", "/matriz"));
-		map.put(TiposUsuarios.PROFESSOR, Arrays.asList("/viewmatriz"));
-		map.put(TiposUsuarios.ALUNO, Arrays.asList("/viewmatriz"));
+		map.put(TiposUsuarios.SEM_IDENTIFICADOR, Arrays.asList("/usuario/login", "/usuario/logout"));
+		map.put(TiposUsuarios.ADMINISTRADOR, Arrays.asList("/usuario", "/usuario/logout"));
+		map.put(TiposUsuarios.COORDENADOR, Arrays.asList("/curso", "/disciplina", "/semestre", "/matriz", "/usuario/logout"));
+		map.put(TiposUsuarios.PROFESSOR, Arrays.asList("/viewmatriz", "/usuario/logout"));
+		map.put(TiposUsuarios.ALUNO, Arrays.asList("/viewmatriz", "/usuario/logout"));
 		
 		
 		

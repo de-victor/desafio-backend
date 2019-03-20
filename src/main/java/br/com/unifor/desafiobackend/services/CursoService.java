@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import br.com.unifor.desafiobackend.configs.TiposUsuarios;
 import br.com.unifor.desafiobackend.generics.GenericService;
 import br.com.unifor.desafiobackend.model.Curso;
 import br.com.unifor.desafiobackend.model.Usuario;
@@ -23,7 +24,7 @@ public class CursoService extends GenericService<Curso, Long, CursoRepository> {
 	public Curso salvar(Curso model) {
 		Usuario coordenador = userService.getById(model.getIdCoordenador());
 		
-		if(coordenador.getIdTipo() != 2)
+		if(coordenador.getIdTipo() != TiposUsuarios.COORDENADOR)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "COORDENADOR DE CURSO INVALIDO");
 		
 		return this.repository.saveAndFlush(model);

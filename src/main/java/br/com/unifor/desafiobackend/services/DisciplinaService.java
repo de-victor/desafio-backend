@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import br.com.unifor.desafiobackend.configs.TiposUsuarios;
 import br.com.unifor.desafiobackend.generics.GenericService;
 import br.com.unifor.desafiobackend.model.Disciplina;
 import br.com.unifor.desafiobackend.model.Usuario;
@@ -20,7 +21,7 @@ public class DisciplinaService extends GenericService<Disciplina, Long, Discipli
 	@Override
 	public Disciplina salvar(Disciplina model) {
 		Usuario professor = userService.getById(model.getIdProfessor());
-		if(professor == null || professor.getIdTipo() != 3)
+		if(professor == null || professor.getIdTipo() != TiposUsuarios.PROFESSOR)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "PROFESSOR INVALIDO INVALIDO");
 		
 		return super.salvar(model);

@@ -46,5 +46,5 @@ public class Disciplina {
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="dis_fk_id_curso", insertable=false, updatable=false)
 	private Curso curso;
-
+	
 }
